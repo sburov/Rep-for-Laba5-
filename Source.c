@@ -1,101 +1,108 @@
 #include<stdio.h>
 #include<math.h>
-#include<conio.h>
-#define n 5
-void vvid(int element[n][n]);
-void metod_vibory(int element[n][n]);
-void suma(int element[n][n]);
-void heometruchne(int element[n][n]);
+#define length_of_matrix 5
+
 void main()
 {
-    int element[n][n];
-    vvid(element);
-    metod_vibory(element);
-    suma(element);
-    heometruchne(element);
+    int matrix[length_of_matrix][length_of_matrix];
+    input_elements(matrix);
+    selection_of_elements(matrix);
+    sumfields(matrix);
+    geometric_meaning(matrix);
 }
-void vvid(int element[n][n])
-{
-    int i, j, k, f, pos;
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-        {
-            printf("element[%d][%d] =", i + 1, j + 1);
-            scanf_s("%d", &element[i][j]);
-        }
-    }
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-            printf("   %i\t", element[i][j]);
-        printf("\n");
-    }
- 
-}
-
-void metod_vibory(int element[n][n])
-{
-    int i, j, pos, p, f;
-    for (j = 0; j < n; j++)
-        for (i = 0; i < n - 1; i++)
-        {
-            int pos = i;
-            for (p = i + 1; p < n - 1; p++)
-                if (element[pos][j] > element[p][j])
-                { 
-
-                    pos = p;
-                    f = element[pos][j];
-                    element[pos][j] = element[i][j];
-                    element[i][j] = f;
-                }
-        }
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-            printf("%i\t", element[i][j]);
-        printf("\n");
-    }
-
-}
-void suma(int element[n][n])
+void input_elements(matrix)
 {
     int i, j;
-    double suma;
-
-    suma = 0;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < length_of_matrix ; i++)
     {
+        for (j = 0; j < length_of_matrix; j++)
         {
-            for (j = 0; j < n; j++)
-                suma = suma + element[i][j];
+            printf("matrix[%d][%d] =", i + 1, j + 1);
+            scanf_s("%d", &matrix[i][j]);
         }
-        printf("   suma elemetiv = %lf", suma);
-        printf("\n");
-        suma = 0;
     }
- 
+    for (i = 0; i < length_of_matrix; i++)
+    {
+        for (j = 0; j < length_of_matrix; j++)
+            printf("   %i\t", matrix[i][j]);
+        printf("\n");
+    }
 }
 
-void heometruchne(int element[n][n])
+void selection_of_elements(matrix)
+{
+
+    for (int i = 0; i < (5 * 5); ++i) {
+        for (int j = 0; j < (5 * 5) - 1; ++j) {
+            int cr = j / 5; // current row
+            int cc = j % 5; // current column
+            int nr = (j + 1) / 5; // next item row
+            int nc = (j + 1) % 5; // next item column
+
+            if (matrix[cr][cc] > matrix[nr][nc]) {
+                int temp = matrix[cr][cc];
+                matrix[cr][cc] = matrix[nr][nc];
+                matrix[nr][nc] = temp;
+            }
+
+        }
+    }
+    for (int j = 0; j < length_of_matrix; j++)
+        for (int i = 0; i < length_of_matrix - 1; i++)
+        {
+            variable i;
+            for (p = i + 1; p < length_of_matrix - 1; p++)
+                if (matrix[i][j] > matrix[p][j])
+                {
+
+                    i = p;
+                    f = matrix[i][j];
+                    matrix[i][j] = matrix[i][j];
+                    matrix[i][j] = f;
+                }
+        }
+    for (int i = 0; i < length_of_matrix; i++)
+    {
+        for (int j = 0; j < n; j++)
+            printf("%i\t", matrix[i][j]);
+        printf("\n");
+    }
+
+}
+void sumfields(matrix)
+{
+    int i, j;
+    double sum_elements;
+    sum_elements = 0;
+    for (i = 0; i < length_of_matrix; i++)
+    {
+        {
+            for (j = 0; j < length_of_matrix; j++)
+                sum_elements = sum_elements + matrix[i][j];
+        }
+        printf("   suma elemetiv = %lf", sum_elements);
+        printf("\n");
+        sum_elements = 0;
+    }
+
+}
+
+void geometric_meaning(matrix)
 {
     int i = 1, j;
-    double dobutok, serheom;
-    dobutok = i; 
+    double product, geometriñ_mean;
+    product = i;
+    for (i = 0; i < length_of_matrix; i++);
     {
-        for (i = 0; i < n; i++);
         {
-            {
-                for (j = 0; j < n; j++)
-                    dobutok = dobutok * element[i][j];
-                serheom = pow(dobutok, (double)i / n);
-
-            }
-            printf(" seredne heometrichne znachennya = %lf", serheom);
-            printf("\n");
-            dobutok = i;
+            for (j = 0; j < length_of_matrix; j++)
+                product = product * matrix[i][j];
+            geometriñ_mean = pow(product, (double)i / length_of_matrix);
         }
+        printf(" seredne heometrichne znachennya = %lf", geometriñ_mean);
+        printf("\n");
+        product = i;
     }
-  
 }
+
+
